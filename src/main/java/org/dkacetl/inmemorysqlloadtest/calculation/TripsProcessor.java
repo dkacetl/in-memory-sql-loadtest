@@ -16,13 +16,12 @@ public class TripsProcessor  {
     public Mono<VehicleEntity> process(VehicleEvent vehicleEvent) {
 
         VehicleEntity newVehicleEntity =new VehicleEntity();
-        newVehicleEntity.setLicencePlate(vehicleEvent.getLicencePlate());
+        newVehicleEntity.setLicensePlate(vehicleEvent.getLicencePlate());
 
-        Mono<VehicleEntity> vehicleEntityMono =
-                vehicleRepository.findByLicencePlate(vehicleEvent.getLicencePlate())
-                        .onErrorReturn(newVehicleEntity);
-
-        return vehicleRepository.save(vehicleEntityMono.block());
+        return
+                vehicleRepository
+                        .findByLicensePlate(vehicleEvent.getLicencePlate())
+                        .switchIfEmpty(vehicleRepository.save(newVehicleEntity));
     }
 
 }

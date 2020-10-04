@@ -1,13 +1,17 @@
 package org.dkacetl.inmemorysqlloadtest.db.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("vehicle")
 public class VehicleEntity {
 
     @Id
     private Long id;
 
-    private String licencePlate;
+    @Column("license_plate")
+    private String licensePlate;
 
     public Long getId() {
         return id;
@@ -17,11 +21,11 @@ public class VehicleEntity {
         this.id = id;
     }
 
-    public String getLicencePlate() {
-        return licencePlate;
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public void setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 }

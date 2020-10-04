@@ -29,7 +29,7 @@ public class VehicleEventProducer {
                     VehicleEvent vehicleEvent = generateVehicleEvent();
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 
 public interface VehicleRepository extends ReactiveCrudRepository<VehicleEntity, Long> {
 
-    @Query("SELECT id, licence_plate FROM vehicle v WHERE c.licence_plate = :licencePlate")
-    Mono<VehicleEntity> findByLicencePlate(String licencePlate);
+    @Query("SELECT id, license_plate FROM vehicle v WHERE v.license_plate = :licencePlate")
+    Mono<VehicleEntity> findByLicensePlate(String licencePlate);
 }

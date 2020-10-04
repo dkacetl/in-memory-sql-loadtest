@@ -8,6 +8,8 @@ import org.springframework.data.r2dbc.connectionfactory.init.CompositeDatabasePo
 import org.springframework.data.r2dbc.connectionfactory.init.ConnectionFactoryInitializer;
 import org.springframework.data.r2dbc.connectionfactory.init.ResourceDatabasePopulator;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
 public class SchemaInitializerConfiguration {
 
