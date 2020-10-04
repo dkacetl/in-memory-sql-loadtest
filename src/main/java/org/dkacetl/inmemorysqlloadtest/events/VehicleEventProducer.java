@@ -41,7 +41,7 @@ public class VehicleEventProducer {
 
     private VehicleEvent generateVehicleEvent() {
         VehicleEvent vehicleEvent = new VehicleEvent();
-        vehicleEvent.setLicencePlate("ABC-" + new Random().nextInt(3));
+        vehicleEvent.setVehicleId(new Random().nextLong());
         vehicleEvent.setLatitude(new Random().nextFloat());
         vehicleEvent.setLongitude(new Random().nextFloat());
         return vehicleEvent;

@@ -6,7 +6,7 @@ public class VehicleEvent {
 
     private Long vehicleId;
 
-    private String licencePlate;
+    private boolean engineOn;
 
     private float latitude;
 
@@ -15,11 +15,19 @@ public class VehicleEvent {
     public VehicleEvent() {
     }
 
-    public VehicleEvent(Long vehicleId, String licencePlate, float latitude, float longitude) {
+    public VehicleEvent(Long vehicleId, boolean engineOn, float latitude, float longitude) {
         this.vehicleId = vehicleId;
-        this.licencePlate = licencePlate;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.engineOn = engineOn;
+    }
+
+    public boolean isEngineOn() {
+        return engineOn;
+    }
+
+    public void setEngineOn(boolean engineOn) {
+        this.engineOn = engineOn;
     }
 
     public Long getVehicleId() {
@@ -28,14 +36,6 @@ public class VehicleEvent {
 
     public void setVehicleId(Long vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public String getLicencePlate() {
-        return licencePlate;
-    }
-
-    public void setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
     }
 
     public float getLatitude() {
@@ -58,7 +58,7 @@ public class VehicleEvent {
     public String toString() {
         return new StringJoiner(", ", VehicleEvent.class.getSimpleName() + "[", "]")
                 .add("vehicleId=" + vehicleId)
-                .add("licencePlate='" + licencePlate + "'")
+                .add("engineOn='" + engineOn + "'")
                 .add("latitude=" + latitude)
                 .add("longitude=" + longitude)
                 .toString();

@@ -1,6 +1,7 @@
 package org.dkacetl.inmemorysqlloadtest.core;
 
 import org.dkacetl.inmemorysqlloadtest.calculation.TripsProcessor;
+import org.dkacetl.inmemorysqlloadtest.db.model.TripPointEntity;
 import org.dkacetl.inmemorysqlloadtest.db.model.VehicleEntity;
 import org.dkacetl.inmemorysqlloadtest.events.VehicleEventProducer;
 import org.slf4j.Logger;
@@ -28,8 +29,8 @@ public class SimulatorCore {
         vehicleEventProducer.vehicleEventStream().
                 forEach((ve) -> {
                     LOGGER.info("Event from vehicle achieved: " + ve.toString());
-                    VehicleEntity e = tripsProcessor.process(ve).block();
-                    LOGGER.info("Entity stored " + e.getId());
+                    TripPointEntity e = tripsProcessor.process(ve).block();
+                    LOGGER.info("Entity stored " + e);
 //                            .doOnNext((item) -> LOGGER.info("Entity stored" + item.getId()))
 //                            .doOnError( (e) -> LOGGER.error("Error "+e));
                 } );

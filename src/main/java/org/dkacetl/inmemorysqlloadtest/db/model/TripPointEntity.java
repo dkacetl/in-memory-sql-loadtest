@@ -1,14 +1,18 @@
 package org.dkacetl.inmemorysqlloadtest.db.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
+@Table("trip_point")
 public class TripPointEntity {
 
     @Id
     private Long id;
 
+    @Column("trip_id")
     private Long tripId;
 
     private Float latitude;
