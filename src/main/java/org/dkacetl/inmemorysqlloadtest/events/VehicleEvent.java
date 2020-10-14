@@ -1,5 +1,6 @@
 package org.dkacetl.inmemorysqlloadtest.events;
 
+import java.time.Instant;
 import java.util.StringJoiner;
 
 public class VehicleEvent {
@@ -12,14 +13,17 @@ public class VehicleEvent {
 
     private float longitude;
 
+    private Instant timestamp;
+
     public VehicleEvent() {
     }
 
-    public VehicleEvent(Long vehicleId, boolean engineOn, float latitude, float longitude) {
+    public VehicleEvent(Long vehicleId, boolean engineOn, float latitude, float longitude, Instant timestamp) {
         this.vehicleId = vehicleId;
+        this.engineOn = engineOn;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.engineOn = engineOn;
+        this.timestamp = timestamp;
     }
 
     public boolean isEngineOn() {
@@ -54,13 +58,22 @@ public class VehicleEvent {
         this.longitude = longitude;
     }
 
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", VehicleEvent.class.getSimpleName() + "[", "]")
                 .add("vehicleId=" + vehicleId)
-                .add("engineOn='" + engineOn + "'")
+                .add("engineOn=" + engineOn)
                 .add("latitude=" + latitude)
                 .add("longitude=" + longitude)
+                .add("timestamp=" + timestamp)
                 .toString();
     }
 }

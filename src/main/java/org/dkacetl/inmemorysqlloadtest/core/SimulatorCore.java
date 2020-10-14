@@ -11,7 +11,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 
 @Component
 public class SimulatorCore {
@@ -31,8 +30,6 @@ public class SimulatorCore {
                     LOGGER.info("Event from vehicle achieved: " + ve.toString());
                     TripPointEntity e = tripsProcessor.process(ve).block();
                     LOGGER.info("Entity stored " + e);
-//                            .doOnNext((item) -> LOGGER.info("Entity stored" + item.getId()))
-//                            .doOnError( (e) -> LOGGER.error("Error "+e));
                 } );
     }
 }

@@ -1,7 +1,7 @@
 
 CREATE TABLE vehicle (id IDENTITY PRIMARY KEY, license_plate varchar(255));
 CREATE TABLE trip (id IDENTITY PRIMARY KEY, vehicle_id BIGINT not null, start_ts TIMESTAMP, stop_ts TIMESTAMP);
-CREATE TABLE trip_point (id IDENTITY PRIMARY KEY, trip_id BIGINT not null, ts TIMESTAMP, lat Decimal(9,6), lon Decimal(9,6));
+CREATE TABLE trip_point (id IDENTITY PRIMARY KEY, trip_id BIGINT not null, timestamp TIMESTAMP, lat Decimal(9,6), lon Decimal(9,6));
 
 alter table trip add constraint vehicle_trip_ref foreign key (vehicle_id) references vehicle;
 alter table trip_point add constraint trip_trip_point_ref foreign key (trip_id) references trip;
