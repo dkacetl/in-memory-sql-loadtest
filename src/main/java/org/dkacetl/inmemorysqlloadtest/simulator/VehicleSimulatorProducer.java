@@ -1,5 +1,6 @@
-package org.dkacetl.inmemorysqlloadtest.events;
+package org.dkacetl.inmemorysqlloadtest.simulator;
 
+import org.dkacetl.inmemorysqlloadtest.events.VehicleEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuple2;
@@ -8,10 +9,7 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.stream.Stream;
 
-@Component
-public class VehicleEventProducer {
-
-
+public class VehicleSimulatorProducer {
 
     public Flux<VehicleEvent> vehicleEventFlux() {
         Flux<Long> interval = Flux.interval(Duration.ofSeconds(10));
@@ -19,31 +17,30 @@ public class VehicleEventProducer {
             VehicleEvent vehicleEvent = generateVehicleEvent();
             sink.next(vehicleEvent);
         });
-
        return Flux.zip(interval, generator).map(Tuple2::getT2);
     }
 
     public Stream<VehicleEvent> vehicleEventStream() {
-        Stream<VehicleEvent> vehicleEventStream = Stream.generate(
+        return Stream.generate(
                 () -> {
                     VehicleEvent vehicleEvent = generateVehicleEvent();
 
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     return vehicleEvent;
                 });
-
-        return vehicleEventStream;
     }
 
     private VehicleEvent generateVehicleEvent() {
         VehicleEvent vehicleEvent = new VehicleEvent();
-        vehicleEvent.setVehicleId(new Random().nextLong());
+        //vehicleEvent.setVehicleId(new Random().nextLong()%10);
+        vehicleEvent.setVehicleId(1L);
         vehicleEvent.setLatitude(new Random().nextFloat());
         vehicleEvent.setLongitude(new Random().nextFloat());
+        vehicleEvent.setEngineOn(false);
         return vehicleEvent;
     }
 }

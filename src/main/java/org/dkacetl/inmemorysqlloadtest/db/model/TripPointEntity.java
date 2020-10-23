@@ -1,15 +1,16 @@
 package org.dkacetl.inmemorysqlloadtest.db.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 @Table("trip_point")
-public class TripPointEntity {
+public class TripPointEntity implements Persistable<Long> {
 
     @Id
     private Long id;
@@ -22,6 +23,19 @@ public class TripPointEntity {
     private Float longitude;
 
     private Instant timestamp;
+
+    @Transient
+    private boolean newProduct = false;
+
+    @Override
+    public boolean isNew() {
+        return id==null || newProduct;
+    }
+
+    public TripPointEntity setAsNew() {
+        this.newProduct = true;
+        return this;
+    }
 
     public Long getId() {
         return id;
