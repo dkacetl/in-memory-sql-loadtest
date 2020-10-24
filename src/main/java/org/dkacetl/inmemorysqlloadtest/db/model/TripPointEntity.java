@@ -18,10 +18,13 @@ public class TripPointEntity implements Persistable<Long> {
     @Column("trip_id")
     private Long tripId;
 
+    @Column("latitude")
     private Float latitude;
 
+    @Column("longitude")
     private Float longitude;
 
+    @Column("timestamp")
     private Instant timestamp;
 
     @Transient

@@ -17,8 +17,10 @@ public class TripPointProcessor {
     public Mono<TripPointEntity> saveNewTripPoint(TripEntity trip, VehicleEvent event) {
         TripPointEntity tripPointEntity = new TripPointEntity();
         tripPointEntity.setTripId(trip.getId());
+        tripPointEntity.setLatitude(event.getLatitude());
+        tripPointEntity.setLongitude(event.getLongitude());
         tripPointEntity.setTimestamp(event.getTimestamp());
 
-        return tripPointRepository.save(tripPointEntity);
+        return tripPointRepository.save(tripPointEntity.setAsNew());
     }
 }

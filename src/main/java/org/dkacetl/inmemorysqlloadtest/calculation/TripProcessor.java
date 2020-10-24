@@ -21,7 +21,11 @@ public class TripProcessor {
     public Mono<TripEntity> handleTrip(VehicleEntity vehicle, VehicleEvent event) {
         Mono<TripEntity> tripEntityMono = tripRepository.findTripForEvent(vehicle.getId(), event.getTimestamp());
 
-        return tripEntityMono.flatMap( tripEntity -> {
+        return tripEntityMono
+                .switchIfEmpty(
+                        // no trip found, create new open trip
+                        openNewTrip(vehicle, event))
+                .flatMap( tripEntity -> {
                     if (event.isEngineOn()) {
                         // engine started - close told trip, open a new one
                         closeCurrentTrip(tripEntity, event);
@@ -32,9 +36,6 @@ public class TripProcessor {
                         return Mono.just(tripEntity);
                     }
                 }
-        ).switchIfEmpty(
-                // no trip found, create new open trip
-                openNewTrip(vehicle, event)
         );
     }
 
@@ -48,6 +49,6 @@ public class TripProcessor {
         tripEntity.setStartTs(event.getTimestamp());
         tripEntity.setStopTs(null); // open trip
         tripEntity.setVehicleId(vehicle.getId());
-        return tripRepository.save(tripEntity);
+        return tripRepository.save(tripEntity.setAsNew());
     }
 }
