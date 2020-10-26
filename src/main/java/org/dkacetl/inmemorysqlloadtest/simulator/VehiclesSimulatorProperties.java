@@ -11,9 +11,9 @@ public class VehiclesSimulatorProperties {
 
     private int vehiclesCount = 10;  // count of simulated vehicles
 
-    private long emittingRate = 10L; // how often will be event emitted (common for all vehicles)
+    private long emittingRate = 10L; // how often will be event emitted, milisec (common for all vehicles)
 
-    private int eventLimit = -1;
+    private int eventLimit = -1; // no limit, unlimited emitting
 
     public boolean isEnabled() {
         return enabled;

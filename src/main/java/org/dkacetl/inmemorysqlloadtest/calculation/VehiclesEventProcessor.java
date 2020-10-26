@@ -35,7 +35,8 @@ public class VehiclesEventProcessor {
         VehicleEntity newVehicleEntity =new VehicleEntity();
         newVehicleEntity.setLicensePlate(vehicleEvent.getVehicleId().toString());
         newVehicleEntity.setId(vehicleEvent.getVehicleId());
-        return vehicleRepository.save(newVehicleEntity.setAsNew());
+        return vehicleRepository.save(newVehicleEntity.setAsNew())
+                .doOnError(Throwable::printStackTrace);
     }
 
 }

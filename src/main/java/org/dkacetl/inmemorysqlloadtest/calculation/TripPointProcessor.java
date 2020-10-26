@@ -21,6 +21,7 @@ public class TripPointProcessor {
         tripPointEntity.setLongitude(event.getLongitude());
         tripPointEntity.setTimestamp(event.getTimestamp());
 
-        return tripPointRepository.save(tripPointEntity.setAsNew());
+        return tripPointRepository.save(tripPointEntity.setAsNew())
+                .doOnError(Throwable::printStackTrace);
     }
 }

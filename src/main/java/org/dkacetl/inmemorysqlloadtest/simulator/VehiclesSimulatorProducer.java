@@ -51,8 +51,8 @@ public class VehiclesSimulatorProducer {
     private VehicleEvent generateNextVehicleEvent(VehicleEvent lastVehicleEvent) {
         VehicleEvent vehicleEvent = new VehicleEvent();
         vehicleEvent.setVehicleId(lastVehicleEvent.getVehicleId());
-        vehicleEvent.setLatitude(lastVehicleEvent.getLatitude() + ((random.nextFloat()/Float.MAX_VALUE)/100.0F));
-        vehicleEvent.setLongitude(lastVehicleEvent.getLongitude() + ((random.nextFloat()/Float.MAX_VALUE)/100.0F));
+        vehicleEvent.setLatitude(lastVehicleEvent.getLatitude() + (0.0001F * (random.nextFloat()-0.5f)));
+        vehicleEvent.setLongitude(lastVehicleEvent.getLongitude() + (0.0001F * (random.nextFloat()-0.5f))); //((random.nextFloat()/Float.MAX_VALUE)/100.0F)
         vehicleEvent.setEngineOn(false);
         vehicleEvent.setTimestamp(Instant.now());
         return vehicleEvent;
@@ -61,8 +61,8 @@ public class VehiclesSimulatorProducer {
     private VehicleEvent generateFirstVehicleEvent(long vehicleId) {
         VehicleEvent vehicleEvent = new VehicleEvent();
         vehicleEvent.setVehicleId(vehicleId);
-        vehicleEvent.setLatitude(new Random().nextFloat());
-        vehicleEvent.setLongitude(new Random().nextFloat());
+        vehicleEvent.setLatitude(random.nextFloat());
+        vehicleEvent.setLongitude(random.nextFloat());
         vehicleEvent.setEngineOn(false);
         vehicleEvent.setTimestamp(Instant.now());
         return vehicleEvent;

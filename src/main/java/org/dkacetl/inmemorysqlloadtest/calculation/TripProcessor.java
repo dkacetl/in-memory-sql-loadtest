@@ -41,7 +41,8 @@ public class TripProcessor {
 
     private Mono<TripEntity> closeCurrentTrip(TripEntity currentTrip, VehicleEvent event) {
         currentTrip.setStopTs(event.getTimestamp());
-        return tripRepository.save(currentTrip);
+        return tripRepository.save(currentTrip)
+                .doOnError(Throwable::printStackTrace);
     }
 
     private Mono<TripEntity> openNewTrip(VehicleEntity vehicle, VehicleEvent event) {
@@ -49,6 +50,7 @@ public class TripProcessor {
         tripEntity.setStartTs(event.getTimestamp());
         tripEntity.setStopTs(null); // open trip
         tripEntity.setVehicleId(vehicle.getId());
-        return tripRepository.save(tripEntity.setAsNew());
+        return tripRepository.save(tripEntity.setAsNew())
+                .doOnError(Throwable::printStackTrace);
     }
 }
