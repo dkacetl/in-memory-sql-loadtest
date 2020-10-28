@@ -2,8 +2,11 @@ package org.dkacetl.inmemorysqlloadtest.calculation;
 
 import org.dkacetl.inmemorysqlloadtest.db.model.TripEntity;
 import org.dkacetl.inmemorysqlloadtest.db.model.VehicleEntity;
+import org.dkacetl.inmemorysqlloadtest.db.repository.TripPointRepository;
 import org.dkacetl.inmemorysqlloadtest.db.repository.TripRepository;
 import org.dkacetl.inmemorysqlloadtest.events.VehicleEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -11,8 +14,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class TripProcessor {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TripProcessor.class);
+
     @Autowired
     private TripRepository tripRepository;
+
+    @Autowired
+    private TripPointRepository tripPointRepository;
 
     /**
      *
@@ -28,9 +36,8 @@ public class TripProcessor {
                 .flatMap( tripEntity -> {
                     if (event.isEngineOn()) {
                         // engine started - close told trip, open a new one
-                        closeCurrentTrip(tripEntity, event);
-                        // new unfinished trip
-                        return openNewTrip(vehicle, event);
+                        return closeCurrentTrip(tripEntity, event)
+                                .then(openNewTrip(vehicle, event)); // new unfinished trip
                     } else {
                         // just current trip
                         return Mono.just(tripEntity);
@@ -40,9 +47,17 @@ public class TripProcessor {
     }
 
     private Mono<TripEntity> closeCurrentTrip(TripEntity currentTrip, VehicleEvent event) {
-        currentTrip.setStopTs(event.getTimestamp());
-        return tripRepository.save(currentTrip)
-                .doOnError(Throwable::printStackTrace);
+        return tripPointRepository
+                .getTripPointsCount(currentTrip.getId())
+                .flatMap((count)-> {
+                    currentTrip.setStopTs(event.getTimestamp());
+                    currentTrip.setTripPointsCount(count);
+                    return tripRepository.save(currentTrip);
+                }).doOnError( (exception) ->
+                    {
+                        LOGGER.error("Error "+currentTrip,  exception);
+                    }
+                );
     }
 
     private Mono<TripEntity> openNewTrip(VehicleEntity vehicle, VehicleEvent event) {

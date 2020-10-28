@@ -22,6 +22,9 @@ public class TripEntity implements Persistable<Long> {
     @Column("stop_ts")
     private Instant stopTs;
 
+    @Column("trip_points_count")
+    private Long tripPointsCount;
+
     @Transient
     private boolean newProduct = false;
 
@@ -65,5 +68,13 @@ public class TripEntity implements Persistable<Long> {
 
     public void setStopTs(Instant stopTs) {
         this.stopTs = stopTs;
+    }
+
+    public Long getTripPointsCount() {
+        return tripPointsCount;
+    }
+
+    public void setTripPointsCount(Long tripPointsCount) {
+        this.tripPointsCount = tripPointsCount;
     }
 }

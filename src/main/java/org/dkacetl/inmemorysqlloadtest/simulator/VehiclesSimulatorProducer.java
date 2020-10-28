@@ -53,7 +53,7 @@ public class VehiclesSimulatorProducer {
         vehicleEvent.setVehicleId(lastVehicleEvent.getVehicleId());
         vehicleEvent.setLatitude(lastVehicleEvent.getLatitude() + (0.0001F * (random.nextFloat()-0.5f)));
         vehicleEvent.setLongitude(lastVehicleEvent.getLongitude() + (0.0001F * (random.nextFloat()-0.5f))); //((random.nextFloat()/Float.MAX_VALUE)/100.0F)
-        vehicleEvent.setEngineOn(false);
+        vehicleEvent.setEngineOn((random.nextInt()%100)==1);
         vehicleEvent.setTimestamp(Instant.now());
         return vehicleEvent;
     }
