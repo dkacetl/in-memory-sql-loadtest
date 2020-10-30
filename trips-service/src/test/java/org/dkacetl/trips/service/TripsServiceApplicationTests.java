@@ -18,7 +18,8 @@ class TripsServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Mockito.when(vehicleEventsProducer.vehicleEventStream()).thenReturn(Stream.empty());
+		Mockito.when(vehicleEventsProducer.vehicleEventsStream())
+				.thenReturn(Stream.empty());
 	}
 
 }

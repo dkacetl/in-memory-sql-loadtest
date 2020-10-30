@@ -7,5 +7,5 @@ import java.util.stream.Stream;
 
 public interface VehicleEventsProducer {
 
-    Stream<VehicleEvent> vehicleEventStream();
+    Stream<VehicleEvent> vehicleEventsStream();
 }

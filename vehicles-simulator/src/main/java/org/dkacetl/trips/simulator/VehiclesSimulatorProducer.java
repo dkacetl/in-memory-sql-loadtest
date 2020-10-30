@@ -22,8 +22,7 @@ public class VehiclesSimulatorProducer implements VehicleEventsProducer {
     @Autowired
     private VehiclesSimulatorProperties vehiclesSimulatorProperties;
 
-    @Override
-    public Stream<VehicleEvent> vehicleEventStream() {
+    public Stream<VehicleEvent> vehicleEventsStream() {
         nextVehiclesEventMap = new HashMap<>(vehiclesSimulatorProperties.getVehiclesCount());
 
         Stream<VehicleEvent> vehicleEventStream = Stream.generate(

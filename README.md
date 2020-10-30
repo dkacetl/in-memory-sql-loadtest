@@ -1,4 +1,4 @@
-# Load Test for In-memory-sql
+# Trips service
 
 The aim for this project is to test performance and stability of pure 
 in-memory sql database (H2 in this case) during high data changes (inserts, updates) and computations (selects with joins etc.)
