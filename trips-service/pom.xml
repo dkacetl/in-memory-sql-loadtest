@@ -8,19 +8,29 @@
 		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
 	<groupId>org.dkacetl.trips</groupId>
-	<artifactId>trips-inmemory-simulation</artifactId>
+	<artifactId>trips-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Trips In-memory Simulation</name>
-	<description>Trip In-Memory SQL computation and simulation</description>
-	<packaging>pom</packaging>
+	<name>Trips service</name>
+	<description>Backend service for computing trips</description>
 
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.dkacetl.trips</groupId>
+			<artifactId>trips-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dkacetl.trips</groupId>
+			<artifactId>vehicles-simulator</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
@@ -66,9 +76,13 @@
 		</dependency>
 	</dependencies>
 
-	<modules>
-	    <module>trips-api</module>
-		<module>trips-service</module>
-		<module>vehicles-simulator</module>
-	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
