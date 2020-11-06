@@ -56,6 +56,7 @@ public class VehiclesSimulatorProducer implements VehicleEventsProducer {
         vehicleEvent.setLongitude(lastVehicleEvent.getLongitude() + (0.0001F * (random.nextFloat()-0.5f))); //((random.nextFloat()/Float.MAX_VALUE)/100.0F)
         vehicleEvent.setEngineOn((random.nextInt()%100)==1);
         vehicleEvent.setTimestamp(Instant.now());
+        vehicleEvent.setVelocity(lastVehicleEvent.getVelocity()+ random.nextInt()%2);
         return vehicleEvent;
     }
 
@@ -66,6 +67,7 @@ public class VehiclesSimulatorProducer implements VehicleEventsProducer {
         vehicleEvent.setLongitude(random.nextFloat());
         vehicleEvent.setEngineOn(false);
         vehicleEvent.setTimestamp(Instant.now());
+        vehicleEvent.setVelocity(10);
         return vehicleEvent;
     }
 

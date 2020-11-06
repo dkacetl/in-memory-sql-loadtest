@@ -1,5 +1,6 @@
 package org.dkacetl.trips.service.rest;
 
+import org.dkacetl.trips.service.db.model.TripPointEntity;
 import org.dkacetl.trips.service.db.repository.TripPointRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
@@ -35,9 +37,14 @@ public class CalculateController {
 
         return tripPointRepository
                 .calculateDistance(vehicleId, fromInstant, toInstant)
-                .doOnError( (throwable) -> {
+                .doOnError((throwable) -> {
                     LOGGER.error("error ", throwable);
                     throwable.printStackTrace();
                 });
+    }
+
+    @RequestMapping("/lastState")
+    public Flux<TripPointEntity> lastState(@RequestParam long vehicleId) {
+        return tripPointRepository.getLastTripPoint(vehicleId);
     }
 }

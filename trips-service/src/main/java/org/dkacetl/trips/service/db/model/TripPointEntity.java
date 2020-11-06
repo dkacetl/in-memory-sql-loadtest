@@ -7,7 +7,6 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
-import java.util.StringJoiner;
 
 @Table("trip_point")
 public class TripPointEntity implements Persistable<Long> {
@@ -26,6 +25,9 @@ public class TripPointEntity implements Persistable<Long> {
 
     @Column("timestamp")
     private Instant timestamp;
+
+    @Column("velocity")
+    private Integer velocity;
 
     @Transient
     private boolean newProduct = false;
@@ -80,14 +82,24 @@ public class TripPointEntity implements Persistable<Long> {
         this.timestamp = timestamp;
     }
 
+    public Integer getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Integer velocity) {
+        this.velocity = velocity;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", TripPointEntity.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("tripId=" + tripId)
-                .add("latitude=" + latitude)
-                .add("longitude=" + longitude)
-                .add("timestamp=" + timestamp)
-                .toString();
+        return "TripPointEntity{" +
+                "id=" + id +
+                ", tripId=" + tripId +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", timestamp=" + timestamp +
+                ", velocity=" + velocity +
+                ", newProduct=" + newProduct +
+                '}';
     }
 }

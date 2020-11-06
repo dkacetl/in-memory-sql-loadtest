@@ -1,7 +1,6 @@
 package org.dkacetl.trips.api.events;
 
 import java.time.Instant;
-import java.util.StringJoiner;
 
 public class VehicleEvent {
 
@@ -15,15 +14,18 @@ public class VehicleEvent {
 
     private Instant timestamp;
 
+    private int velocity;
+
     public VehicleEvent() {
     }
 
-    public VehicleEvent(Long vehicleId, boolean engineOn, float latitude, float longitude, Instant timestamp) {
+    public VehicleEvent(Long vehicleId, boolean engineOn, float latitude, float longitude, Instant timestamp, int velocity) {
         this.vehicleId = vehicleId;
         this.engineOn = engineOn;
         this.latitude = latitude;
         this.longitude = longitude;
         this.timestamp = timestamp;
+        this.velocity = velocity;
     }
 
     public boolean isEngineOn() {
@@ -66,14 +68,23 @@ public class VehicleEvent {
         this.timestamp = timestamp;
     }
 
+    public int getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", VehicleEvent.class.getSimpleName() + "[", "]")
-                .add("vehicleId=" + vehicleId)
-                .add("engineOn=" + engineOn)
-                .add("latitude=" + latitude)
-                .add("longitude=" + longitude)
-                .add("timestamp=" + timestamp)
-                .toString();
+        return "VehicleEvent{" +
+                "vehicleId=" + vehicleId +
+                ", engineOn=" + engineOn +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", timestamp=" + timestamp +
+                ", velocity=" + velocity +
+                '}';
     }
 }

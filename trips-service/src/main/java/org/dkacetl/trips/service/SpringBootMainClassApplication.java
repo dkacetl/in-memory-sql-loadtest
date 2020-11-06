@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import(VehiclesSimulatorConfiguration.class)
-public class TripsServiceApplication {
+public class SpringBootMainClassApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TripsServiceApplication.class, args);
+		SpringApplication.run(SpringBootMainClassApplication.class, args);
 	}
 
 }

@@ -20,7 +20,7 @@ public class TripPointProcessor {
         tripPointEntity.setLatitude(event.getLatitude());
         tripPointEntity.setLongitude(event.getLongitude());
         tripPointEntity.setTimestamp(event.getTimestamp());
-
+        tripPointEntity.setVelocity(event.getVelocity());
         return tripPointRepository.save(tripPointEntity.setAsNew())
                 .doOnError(Throwable::printStackTrace);
     }

@@ -18,7 +18,7 @@ public interface TripPointRepository extends ReactiveCrudRepository<TripPointEnt
             "and tp.timestamp >= :startTime " +
             "and tp.timestamp <= :stopTime " +
             "ORDER BY tp.timestamp")
-    Flux<TripPointEntity> findTripPoints(Long vehicleId, Instant startTime, Instant stopTime);
+    Flux<TripPointEntity> findTripPoints(long vehicleId, Instant startTime, Instant stopTime);
 
     @Query("SELECT sum(distance) FROM ( " +
             "SELECT "+
@@ -32,12 +32,24 @@ public interface TripPointRepository extends ReactiveCrudRepository<TripPointEnt
             "AND t.id = tp.trip_id " +
             "AND tp.timestamp >= :startTime " +
             "AND tp.timestamp <= :stopTime) ")
-    Mono<Float> calculateDistance(Long vehicleId, Instant startTime, Instant stopTime);
+    Mono<Float> calculateDistance(long vehicleId, Instant startTime, Instant stopTime);
 
 
     @Query("SELECT count(*) " +
             "FROM  trip_point tp " +
             "WHERE tp.trip_id = :tripId")
-    Mono<Long> getTripPointsCount(Long tripId);
+    Mono<Long> getTripPointsCount(long tripId);
+
+    @Query("SELECT tpp.* FROM " +
+                "(SELECT v.id vehicleId, max(tp.id) id " +
+                 "FROM vehicle v, trip t, trip_point tp " +
+                 "WHERE v.id = :vehicleId " +
+                 "and v.id = t.vehicle_id " +
+                 "and t.id = tp.trip_id " +
+                "GROUP BY v.id) last_tp, " +
+            " trip_point tpp  " +
+            " WHERE last_tp.id = tpp.id ")
+    Flux<TripPointEntity> getLastTripPoint(long vehicleId);
 
 }
+
